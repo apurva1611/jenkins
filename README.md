@@ -27,14 +27,5 @@ sudo certbot --nginx -d jenkins.achirashah.com
 https://jenkins.achirashah.com
 
 
-## Assignment2 - Boran Yildirim
-AIM: The goal of the assignment was to verify that Jenkins instance is accessible over jenkins.borancloud.me
-
-ssh -A instance-user@instance-Id
-
-service nginx status
-sudo systemctl status jenkins
-sudo systemctl restart nginx
-sudo certbot --nginx -d jenkins.borancloud.me
-
-https://jenkins.borancloud.me
+## Boran Yildirim
+Assignments and their readme files can be found on [boran](boran/) folder.
