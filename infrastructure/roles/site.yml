@@ -1,0 +1,18 @@
+---
+#check connectivity to host server  
+# - name: Check connectivity to host server
+#   hosts: local
+#   tasks:
+#     - name: Ping test
+#       ping:
+
+
+#Main YML to execute all roles and playbook
+- name: "aws infrastructure"
+  hosts: localhost
+  gather_facts: false
+
+  roles:
+    - {role: 'common', tags: 'create'}
+
+    - {role: 'terminate', tags: 'delete'}
