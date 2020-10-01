@@ -1,5 +1,8 @@
 aws_region: us-east-2
 aws_profile: boran-nu
 elastic_ip: 3.130.67.236
-app: jenkins
 aws_vpc_id: vpc-0a947c3da92b70b47
+
+### don't change
+app: jenkins
+### don't change

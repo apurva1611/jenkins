@@ -45,7 +45,14 @@ https://jenkins.borancloud.xyz
 
 ## Assignment3 - Boran Yildirim
 
-After setup vpc, copy the vpc_id into terminate_conf.yml.
+Setup network, EC2 and jenkins:
+```
+ansible-playbook site.yml --tags "create" -i hosts -e "@boran_common_conf.yml"
+
+ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook site.yml --tags "boran-jenkins" -i hosts -e "@boran_jenkins_conf.yml"
+```
+
+After setup vpc, copy the vpc_id into boran_terminate_conf.yml.
 To terminate the instance:
 ```
 ansible-playbook site.yml --tags "delete" -e "@boran_terminate_conf.yml"

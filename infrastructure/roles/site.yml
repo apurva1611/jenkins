@@ -6,7 +6,6 @@
 #     - name: Ping test
 #       ping:
 
-
 #Main YML to execute all roles and playbook
 - name: "aws infrastructure"
   hosts: localhost
@@ -16,3 +15,13 @@
     - {role: 'common', tags: 'create'}
 
     - {role: 'terminate', tags: 'delete'}
+
+- name: "Boran EC2 jenkins setup"
+  hosts: boran-ec2
+  gather_facts: false
+  remote_user: ubuntu
+  become: yes
+  roles:
+    - {role: 'jenkins', tags: 'boran-jenkins'}
+
+## add your own values to hosts and add your play

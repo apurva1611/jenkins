@@ -1,0 +1,83 @@
+---
+- name: Update all packages to their latest version
+  become_method: sudo
+  apt:
+    name: "*"
+    state: latest
+
+- name: Install Java
+  become_method: sudo
+  apt:
+    pkg:
+    - default-jre
+    - default-jdk
+
+- name: Import a key file from Jenkins-CI
+  become_method: sudo
+  apt_key:
+    url: https://pkg.jenkins.io/debian-stable/jenkins.io.key
+
+- name: Add http://pkg.jenkins-ci.org/debian binary/ repository into sources list
+  become_method: sudo
+  apt_repository:
+    repo: deb http://pkg.jenkins-ci.org/debian binary/
+
+- name: Install Jenkins
+  become_method: sudo
+  apt:
+    name: jenkins
+    update_cache: yes
+
+- name: Add ppa:certbot/certbot repository into sources list
+  become_method: sudo
+  apt_repository:
+    repo: ppa:certbot/certbot
+
+- name: Install nginx and certbot
+  become_method: sudo
+  apt:
+    pkg:
+    - nginx
+    - python-certbot-nginx
+    update_cache: yes
+
+- name: Update nginx default template file
+  become_method: sudo
+  template:
+    src: "../templates/{{ nginx_default }}"
+    dest: /etc/nginx/sites-available/default
+    validate: bash -c 'nginx -t -c /dev/stdin <<< "events {worker_connections 1;} http { include %s; }"'
+
+- name: Restart nginx
+  become_method: sudo
+  service: name=nginx state=restarted
+
+- name: Check if certificate already exists.
+  become_method: sudo
+  stat:
+    path: /etc/letsencrypt/live/{{ domain | first | replace('*.', '') }}/cert.pem
+  register: letsencrypt_cert
+
+- name: Create certificate.
+  become_method: sudo 
+  command: "certbot --nginx --noninteractive --email {{ certbot_email }} -d {{ domain }} --redirect --agree-tos"
+  when: not letsencrypt_cert.stat.exists
+
+# in the first run, jenkins admin password is needed
+- name: Check that the jenkins initialAdminPassword exists
+  stat:
+    path: /var/lib/jenkins/secrets/initialAdminPassword
+  register: stat_result
+
+- name: Init password Jenkins
+  become: yes
+  become_method: sudo
+  command: cat /var/lib/jenkins/secrets/initialAdminPassword
+  changed_when: false
+  when: stat_result.stat.exists
+  register: result
+
+- name: Print init password Jenkins
+  debug:
+    var: result.stdout
+  when: stat_result.stat.exists
