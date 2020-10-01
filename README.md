@@ -27,5 +27,27 @@ sudo certbot --nginx -d jenkins.achirashah.com
 https://jenkins.achirashah.com
 
 
-## Boran Yildirim
-Assignments and their readme files can be found on [boran](boran/) folder.
+## Assignment2 - Boran Yildirim
+AIM: The goal of the assignment was to verify that Jenkins instance is accessible over jenkins.borancloud.xyz
+
+```
+ssh -i "cloud-kp.pem" ubuntu@ec2-3-130-67-236.us-east-2.compute.amazonaws.com
+```
+
+```
+service nginx status
+sudo systemctl status jenkins
+sudo systemctl restart nginx
+sudo certbot --nginx -d jenkins.borancloud.xyz
+```
+
+https://jenkins.borancloud.xyz
+
+## Assignment3 - Boran Yildirim
+
+After setup vpc, copy the vpc_id into terminate_conf.yml.
+To terminate the instance:
+```
+ansible-playbook site.yml --tags "delete" -e "@boran_terminate_conf.yml"
+```
+
