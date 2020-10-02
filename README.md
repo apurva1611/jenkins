@@ -68,4 +68,15 @@ $ ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook site.yml --tags "achira-jenki
 To terminate the instance:
 $ ansible-playbook site.yml --tags "delete" -e "@achira_terminate_conf.yml"
 
+## Assignment3 - Apurva Mathur
+
+Setup network, EC2 and jenkins:
+$ ansible-playbook site.yml --tags "create" -i hosts -e "@apurva_common_conf.yml"
+
+$ ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook site.yml --tags "apurva-jenkins" -i hosts -e "@apurva_jenkins_conf.yml"
+
+To terminate the instance:
+$ ansible-playbook site.yml --tags "delete" -e "@apurva_terminate_conf.yml"
+
+
 
