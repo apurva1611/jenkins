@@ -16,6 +16,8 @@
 
     - {role: 'terminate', tags: 'delete'}
 
+#   - {role: 'jenkins', tags: 'jenkins'}
+
 - name: "Boran EC2 jenkins setup"
   hosts: boran-ec2
   gather_facts: false
@@ -24,4 +26,11 @@
   roles:
     - {role: 'jenkins', tags: 'boran-jenkins'}
 
-## add your own values to hosts and add your play
+# add your own values to hosts and add your play
+- name: "Achira EC2 jenkins setup"
+  hosts: achira-ec2
+  gather_facts: false
+  remote_user: ubuntu
+  become: yes
+  roles:
+    - {role: 'jenkins', tags: 'achira-jenkins'}

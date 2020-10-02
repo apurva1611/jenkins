@@ -17,7 +17,7 @@ sudo certbot --nginx -d jenkins.example.com
 ## Assignment2 - Achira Shah
 AIM: The goal of the assignment was to verify that Jenkins instance is accessible over jenkins.achirashah.com
 
-ssh -A instance-user@instance-Id
+ssh -i "mykeypair" instance-user@instance-Id
 
 service nginx status
 sudo systemctl status jenkins
@@ -57,4 +57,15 @@ To terminate the instance:
 ```
 ansible-playbook site.yml --tags "delete" -e "@boran_terminate_conf.yml"
 ```
+
+## Assignment3 - Achira Shah
+
+Setup network, EC2 and jenkins:
+$ ansible-playbook site.yml --tags "create" -i hosts -e "@achira_common_conf.yml"
+
+$ ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook site.yml --tags "achira-jenkins" -i hosts -e "@achira_jenkins_conf.yml"
+
+To terminate the instance:
+$ ansible-playbook site.yml --tags "delete" -e "@achira_terminate_conf.yml"
+
 

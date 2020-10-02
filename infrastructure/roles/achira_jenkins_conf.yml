@@ -1,0 +1,10 @@
+---
+aws_region: us-east-2
+aws_profile: root-user
+
+domain: jenkins.achirashah.com
+
+certbot_email: shah.ac@northeastern.edu
+
+# file in jenkins/templates
+nginx_default: "achira-default"
