@@ -34,3 +34,12 @@
   become: yes
   roles:
     - {role: 'jenkins', tags: 'achira-jenkins'}
+
+# ec2 instance create
+- name: "Apurva EC2 jenkins setup"
+  hosts: apurva-ec2
+  gather_facts: false
+  remote_user: ubuntu
+  become: yes
+  roles:
+    - {role: 'jenkins', tags: 'apurva-jenkins'}
