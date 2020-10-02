@@ -2,6 +2,7 @@ aws_region: us-east-1
 aws_profile: root
 elastic_ip: 107.20.242.17
 aws_vpc_id: vpc-0a41a2d41d8bfafff
+vpc_name: "jenkins-{{ aws_region }}-vpc"
 
 ### don't change
 app: jenkins

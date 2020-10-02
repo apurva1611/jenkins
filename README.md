@@ -78,5 +78,8 @@ $ ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook site.yml --tags "apurva-jenki
 To terminate the instance:
 $ ansible-playbook site.yml --tags "delete" -e "@apurva_terminate_conf.yml"
 
+In case the host does not identify known_hosts
+ssh-keygen -R 107.20.242.17
+
 
 
