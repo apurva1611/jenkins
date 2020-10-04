@@ -1,0 +1,10 @@
+---
+aws_region: us-east-1
+aws_profile: root
+
+domain: jenkins.apurvamathur.me
+
+certbot_email: mathur.ap@northeastern.edu
+
+# file in jenkins/templates
+nginx_default: "apurva-default"

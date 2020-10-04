@@ -1,0 +1,11 @@
+[local]
+127.0.0.1 ansible_connection=local
+
+[boran-ec2]
+3.130.67.236 ansible_ssh_private_key_file=~/.ssh/cloud-kp.pem
+
+[achira-ec2]
+18.217.163.226 ansible_user=ubuntu ansible_ssh_private_key_file=~/.ssh/mykeypair
+
+[apurva-ec2]
+107.20.242.17 ansible_ssh_private_key_file=~/.ssh/awsKeyPair

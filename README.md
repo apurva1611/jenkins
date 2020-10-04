@@ -17,7 +17,7 @@ sudo certbot --nginx -d jenkins.example.com
 ## Assignment2 - Achira Shah
 AIM: The goal of the assignment was to verify that Jenkins instance is accessible over jenkins.achirashah.com
 
-ssh -A instance-user@instance-Id
+ssh -i "mykeypair" instance-user@instance-Id
 
 service nginx status
 sudo systemctl status jenkins
@@ -27,5 +27,62 @@ sudo certbot --nginx -d jenkins.achirashah.com
 https://jenkins.achirashah.com
 
 
-## Boran Yildirim
-Assignments and their readme files can be found on [boran](boran/) folder.
+## Assignment2 - Boran Yildirim
+AIM: The goal of the assignment was to verify that Jenkins instance is accessible over jenkins.borancloud.xyz
+
+```
+ssh -i "cloud-kp.pem" ubuntu@ec2-3-130-67-236.us-east-2.compute.amazonaws.com
+```
+
+```
+service nginx status
+sudo systemctl status jenkins
+sudo systemctl restart nginx
+sudo certbot --nginx -d jenkins.borancloud.xyz
+```
+
+https://jenkins.borancloud.xyz
+
+## Assignment3 - Boran Yildirim
+
+Setup network, EC2 and jenkins:
+```
+ansible-playbook site.yml --tags "create" -i hosts -e "@boran_common_conf.yml"
+
+ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook site.yml --tags "boran-jenkins" -i hosts -e "@boran_jenkins_conf.yml"
+```
+
+After setup vpc, copy the vpc_id into boran_terminate_conf.yml.
+To terminate the instance:
+```
+ansible-playbook site.yml --tags "delete" -e "@boran_terminate_conf.yml"
+```
+
+## Assignment3 - Achira Shah
+
+Setup network, EC2 and jenkins:
+$ ansible-playbook site.yml --tags "create" -i hosts -e "@achira_common_conf.yml"
+
+$ ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook site.yml --tags "achira-jenkins" -i hosts -e "@achira_jenkins_conf.yml"
+
+To terminate the instance:
+$ ansible-playbook site.yml --tags "delete" -e "@achira_terminate_conf.yml"
+
+## Assignment3 - Apurva Mathur
+
+Setup network, EC2 and jenkins:
+$ ansible-playbook site.yml --tags "create" -i hosts -e "@apurva_common_conf.yml"
+
+$ ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook site.yml --tags "apurva-jenkins" -i hosts -e "@apurva_jenkins_conf.yml"
+
+To terminate the instance:
+$ ansible-playbook site.yml --tags "delete" -e "@apurva_terminate_conf.yml"
+
+In case the host does not identify known_hosts i.e. ssh error comes do the foloowing: 
+1. ssh-keygen -s f sshpath -R ip_of_ec2_instance
+ex: ssh-keygen -s f "/home/apurva/.ssh/known_hosts" -R 107.20.242.17
+2. ssh-keygen -R 107.20.242.17
+
+
+
+

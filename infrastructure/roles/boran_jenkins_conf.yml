@@ -1,0 +1,10 @@
+---
+aws_region: us-east-2
+aws_profile: boran-nu
+
+domain: jenkins.borancloud.xyz
+
+certbot_email: yildirim.b@northeastern.edu
+
+# file in jenkins/templates
+nginx_default: "boran-default"
