@@ -35,3 +35,65 @@
     ip: "{{ elastic_ip }}"
     state: absent
   with_items: "{{ ec2_info.instances }}"
+
+- name: Delete subnets
+  ec2_vpc_subnet:
+    state: absent
+    profile: "{{ aws_profile }}"
+    region: "{{ aws_region }}"
+    az: "{{ item.value.az }}"
+    vpc_id: "{{ vpc_info.vpcs[0].vpc_id }}"
+    cidr: "{{ item.value.cidr }}"
+    tags:
+      Name: "jenkins_{{ item.value.az }}"
+  with_dict: "{{ vpc_subnets }}"
+  register: jenkins_vpc_subnets
+
+- name: delete vpc security groups
+  ec2_group:
+    state: absent
+    profile: "{{ aws_profile}}"
+    region: "{{ aws_region }}"
+    vpc_id: "{{ vpc_info.vpcs[0].vpc_id }}"
+    name: "jenkins_sg_{{ vpc_info.vpcs[0].vpc_id }}"
+    description: "jenkins security group for {{ vpc_info.vpcs[0].vpc_id }}"
+    rules:
+      - proto: tcp
+        from_port: 22
+        to_port: 22
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp
+        from_port: 443
+        to_port: 443
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp
+        from_port: 80
+        to_port: 80
+        cidr_ip: 0.0.0.0/0
+  register: jenkins_sg
+
+- name: Delete Internet Gateway
+  ec2_vpc_igw:
+    state: absent
+    profile: "{{ aws_profile }}"
+    region: "{{ aws_region }}"
+    vpc_id: "{{ vpc_info.vpcs[0].vpc_id }}"
+    tags:
+      Name: "jenkins"
+  register: jenkins_igw
+
+- name: Delete VPC for Jenkins
+  ec2_vpc_net:
+    state: absent
+    region: "{{ aws_region }}"
+    name: "{{ vpc_name }}"
+    cidr_block: "{{ vpc_cidr }}"
+    dns_hostnames: yes
+    dns_support: yes
+    multi_ok: no
+    tenancy: default
+    profile: "{{ aws_profile }}"
+    tags:
+      Name: "jenkins"
+  register: jenkins_vpc
+
