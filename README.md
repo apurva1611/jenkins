@@ -78,8 +78,11 @@ $ ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook site.yml --tags "apurva-jenki
 To terminate the instance:
 $ ansible-playbook site.yml --tags "delete" -e "@apurva_terminate_conf.yml"
 
-In case the host does not identify known_hosts
-ssh-keygen -R 107.20.242.17
+In case the host does not identify known_hosts i.e. ssh error comes do the foloowing: 
+1. ssh-keygen -s f sshpath -R ip_of_ec2_instance
+ex: ssh-keygen -s f "/home/apurva/.ssh/known_hosts" -R 107.20.242.17
+2. ssh-keygen -R 107.20.242.17
+
 
 
 
