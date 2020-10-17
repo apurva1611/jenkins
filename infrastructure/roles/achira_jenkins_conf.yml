@@ -2,7 +2,7 @@
 aws_region: us-east-2
 aws_profile: root-user
 
-domain: jenkins.achirashah.com
+domain: jenkins-server.achirashah.com
 
 certbot_email: shah.ac@northeastern.edu
 
