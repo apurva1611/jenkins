@@ -83,6 +83,7 @@ In case the host does not identify known_hosts i.e. ssh error comes do the foloo
 ex: ssh-keygen -s f "/home/apurva/.ssh/known_hosts" -R 107.20.242.17
 2. ssh-keygen -R 107.20.242.17
 
+ssh -i "~/.ssh/rootKeyPair" ubuntu@ec2-107-20-242-17.compute-1.amazonaws.com
 
 
 

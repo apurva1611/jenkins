@@ -42,10 +42,10 @@ ec2_image: ami-0817d428a6fb68645
 ### don't change
 
 r53_zone: apurvamathur.me
-r53_record: jenkins.apurvamathur.me
+r53_record: jenkinsroot.apurvamathur.me
 
-keypair: "awsKeyPair"
-ansible_ssh_private_key_file: ~/.ssh/awsKeyPair
+keypair: "rootKeyPair"
+ansible_ssh_private_key_file: ~/.ssh/rootKeyPair
 
 # this line may not be needed, it is required to have in my system
 ansible_python_interpreter: /usr/bin/python3
